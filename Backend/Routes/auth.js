@@ -31,7 +31,6 @@ router.post('/createuser', [
                 return res.status(400).json({error: 'Email already in use.'})
             }
             
-        
             const salt = await bcrypt.genSalt(10);
             const secPass = await bcrypt.hash(req.body.password, salt);
 
