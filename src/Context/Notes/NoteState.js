@@ -35,41 +35,38 @@ const NoteState = (props) => {
       body: JSON.stringify({title, description, tag}) // body data type must match "Content-Type" header
     });
 
-    // const json = await response.json(); // parses JSON response into native JavaScript objects
-    console.log("Note has been added");
-    let note = {
-      "_id": "63db2669dace9697bccf38db",
-      "user": "63ba99ff651fe5d9b3bdf7c3",
-      "title": title,
-      "description": description,
-      "tag": tag,
-      "date": "2023-02-02T02:56:41.487Z",
-      "__v": 0
-    };
+    // const note = await response.json(); // parses JSON response into native JavaScript objects
+    const note = await response.json();
     setNotes(notes.concat(note))
+
   }
 
   // Edit a note
   const editNote = async (id, title, description, tag) => {
     // Add API call
     const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjNiYTk5ZmY2NTFmZTVkOWIzYmRmN2MzIn0sImlhdCI6MTY3MzE4MTczMn0.NfTHhUnG0L2qFGG3oTA10cg1_T9SfVauc5IKHeQ28-k'
       },
       body: JSON.stringify({title, description, tag}) // body data type must match "Content-Type" header
     });
-    const json = response.json(); // parses JSON response into native JavaScript objects
+    const json = await response.json(); // parses JSON response into native JavaScript objects
+    console.log(json);
 
-    for (let index = 0; index < notes.length; index++) {
-      const element = notes[index];
+    let newNotes = JSON.parse(JSON.stringify(notes))
+
+    for (let index = 0; index < newNotes.length; index++) {
+      const element = newNotes[index];
       if (element._id===id) {
-        element.title = title;
-        element.description = description;
-        element.tag = tag;
+        newNotes[index].title = title;
+        newNotes[index].description = description;
+        newNotes[index].tag = tag;
+        break;
       }
     }
+    setNotes(newNotes);
   }
 
   // Delete a note
