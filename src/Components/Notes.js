@@ -12,7 +12,6 @@ const Notes = () => {
         // eslint-disable-next-line
     }, [])
     
-    
     const reference = useRef(null)
     const referenceClose = useRef(null)
     const [note, setNote] = useState({id:"", etitle: "", edescription: "", etag: ""})
