@@ -1,16 +1,25 @@
 import React from 'react'
 import { useContext, useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import noteContext from '../Context/Notes/noteContext'
 import AddNote from './AddNote'
 import NoteItem from './NoteItem'
 
-const Notes = () => {
+const Notes = (props) => {
     const context = useContext(noteContext)
     const { notes, getNote, editNote } = context;
+    const navigate = useNavigate();
+
     useEffect(() => {
-        getNote();
+        if (localStorage.getItem('token')) {
+            getNote();
+        }
+        else{
+            navigate("/login");
+            // Another way to use useNavigate
+        }
         // eslint-disable-next-line
-    }, [])
+    },[])
     
     const reference = useRef(null)
     const referenceClose = useRef(null)
@@ -25,6 +34,7 @@ const Notes = () => {
         editNote(note.id, note.etitle, note.edescription, note.etag);
         // console.log("Updated Note", note);
         referenceClose.current.click();
+        props.showAlert("Note edited successfully", "success") 
     }
     
     const onChange = (event) => {
@@ -33,7 +43,7 @@ const Notes = () => {
 
     return (
         <>
-            <AddNote />
+            <AddNote showAlert = {props.showAlert}/>
             <button type="button" ref={reference} className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">Launch demo modal</button>
 
             <div className="modal fade" id="exampleModalCenter" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -75,7 +85,7 @@ const Notes = () => {
                     {notes.length===0 && "No notes :("}
                 </div>
                 {notes.map((note) => {
-                    return <NoteItem key={note._id} updateNote={updateNote} note={note} />;
+                    return <NoteItem key={note._id} updateNote={updateNote} showAlert={props.showAlert} note={note} />;
                 })}
             </div>
         </>
