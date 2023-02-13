@@ -1,11 +1,11 @@
 const connectToMongo = require('./db');
 const express = require('express')
 var cors = require('cors');
+const PORT = process.env.port
 
 connectToMongo();
 
 const app = express()
-const port = 5000
 
 
 // Using middleware here to work with JSON
@@ -17,6 +17,6 @@ app.use(cors())
 app.use("/api/auth", require('./Routes/auth'))
 app.use("/api/notes", require('./Routes/notes'))
 
-app.listen(port, () => {
-  console.log(`Notes app backend listening on port ${port}`)
+app.listen(PORT, () => {
+  console.log(`Notes app backend listening on port ${PORT}`)
 })

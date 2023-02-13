@@ -13,10 +13,12 @@ const Login = (props) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const response = await fetch(`http://localhost:5000/api/auth/login`, {
+        const response = await fetch(`/api/auth/login`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Credentials": true
             },
             body: JSON.stringify({email: credentials.email, password: credentials.password})
         });      
@@ -38,21 +40,10 @@ const Login = (props) => {
         setCredentials({...credentials, [event.target.name]: event.target.value})
     }
 
-    // Putting in-line styles into re-usable variables
-    const styles = {
-        // IDK HOW TO USE THIS SHIT MAN WTF
-        background: {
-            // margin: '0px',
-            // padding: '0px',
-            backgroundColor: "lightgrey",
-            border: "2px solid red",
-        }
-    }
-
     return (
         <>
             <form onSubmit={handleSubmit}>
-                <div className="container w-25 translate-middle position-absolute top-50 start-50 border p-5 rounded shadow-lg mb-5 bg-body" style={styles.background}>
+                <div className="container w-25 translate-middle position-absolute top-50 start-50 border p-5 rounded shadow-lg mb-5 bg-body">
                     <div className="mb-4">
                         <h4>Sign-in to your Notes Account</h4>
                     </div>
@@ -74,7 +65,6 @@ const Login = (props) => {
                 </div>
             </form>
         </>
-
     )
 }
 

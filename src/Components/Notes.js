@@ -16,7 +16,6 @@ const Notes = (props) => {
         }
         else{
             navigate("/login");
-            // Another way to use useNavigate
         }
         // eslint-disable-next-line
     },[])
@@ -30,7 +29,6 @@ const Notes = (props) => {
     }
 
     const handleClick = (event) => {
-        // event.preventDefault();
         editNote(note.id, note.etitle, note.edescription, note.etag);
         // console.log("Updated Note", note);
         referenceClose.current.click();

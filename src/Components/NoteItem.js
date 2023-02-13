@@ -1,5 +1,4 @@
 import React, { useContext } from 'react'
-// import { Link } from 'react-router-dom';
 import noteContext from '../Context/Notes/noteContext';
 
 const NoteItem = (props) => {
@@ -19,7 +18,6 @@ const NoteItem = (props) => {
                     <button className="btn btn-primary mx-2" onClick={()=>{deleteNote(note._id); showAlert("Deleted successfully", "primary")}}>
                         <i className="fa-regular fa-trash-can mx-2"></i>Delete
                     </button>
-
                 </div>
             </div>
         </div>

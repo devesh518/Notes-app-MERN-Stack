@@ -3,7 +3,7 @@ import NoteContext from "./noteContext";
 import { useState } from "react";
 
 const NoteState = (props) => {
-  const host = 'http://localhost:5000';
+  const host = '';
   const notesInitial = []
   
   const [notes, setNotes] = useState(notesInitial)
@@ -11,10 +11,12 @@ const NoteState = (props) => {
   // Get all notes
   const getNote = async () => {
     // Add API call
-    const response = await fetch(`${host}/api/notes/fetchall`, {
+    const response = await fetch(`/api/notes/fetchall`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": true,
         'auth-token': localStorage.getItem('token')
       },
     });
@@ -26,10 +28,12 @@ const NoteState = (props) => {
   // Add a note
   const addNote = async (title, description, tag) => {
     // Add API call
-    const response = await fetch(`${host}/api/notes/createnote`, {
+    const response = await fetch(`/api/notes/createnote`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": true,
         'auth-token': localStorage.getItem('token')
       },
       body: JSON.stringify({title, description, tag}) // body data type must match "Content-Type" header
@@ -44,10 +48,12 @@ const NoteState = (props) => {
   // Edit a note
   const editNote = async (id, title, description, tag) => {
     // Add API call
-    const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
+    const response = await fetch(`/api/notes/updatenote/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": true,
         'auth-token': localStorage.getItem('token')
       },
       body: JSON.stringify({title, description, tag}) // body data type must match "Content-Type" header
@@ -72,10 +78,12 @@ const NoteState = (props) => {
   // Delete a note
   const deleteNote = async (id) => {
     // Add API call
-    const response = await fetch(`${host}/api/notes/deletenote/${id}`, {
+    const response = await fetch(`/api/notes/deletenote/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": true,
         'auth-token': localStorage.getItem('token')
       },
     });

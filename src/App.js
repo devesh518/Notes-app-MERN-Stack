@@ -11,7 +11,6 @@ import NoteState from './Context/Notes/NoteState';
 import Alert from './Components/Alert';
 import Login from './Components/Login';
 import Signup from './Components/Signup';
-// import Notes from './Components/Notes';
 import { useState } from 'react';
 
 function App() {
